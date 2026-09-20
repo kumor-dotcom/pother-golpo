@@ -1,0 +1,133 @@
+POTHER GOLPO — GOOGLE SHEETS BOOKING SETUP
+=============================================
+
+FILES
+-----
+1. index.html  -> Your website with the booking form.
+2. Code.gs     -> Google Apps Script backend.
+
+STEP 1 — CREATE GOOGLE SHEET
+----------------------------
+Create a new Google Sheet.
+
+Example name:
+Pother Golpo Bookings
+
+Copy the Spreadsheet ID from the URL:
+
+https://docs.google.com/spreadsheets/d/THIS_IS_THE_ID/edit
+
+Copy only the ID.
+
+STEP 2 — CREATE THE APPS SCRIPT
+-------------------------------
+In the Google Sheet:
+
+Extensions -> Apps Script
+
+Delete the default code and paste the entire contents
+of Code.gs.
+
+Replace:
+
+PASTE_YOUR_GOOGLE_SHEET_ID_HERE
+
+with your real Google Sheet ID.
+
+Save the project.
+
+STEP 3 — CREATE THE BOOKING SHEET
+---------------------------------
+In Apps Script, select the function:
+
+setupSheet
+
+Run it once.
+
+Google will ask for authorization.
+Review and allow the requested Google Sheets permissions.
+
+This creates a "Bookings" sheet with:
+
+Timestamp
+Name
+Phone
+Email
+Destination
+Package
+Travel Date
+Return Date
+Travelers
+Message
+Status
+
+STEP 4 — DEPLOY AS WEB APP
+---------------------------
+In Apps Script:
+
+Deploy -> New deployment
+
+Select:
+Web app
+
+Execute as:
+Me
+
+Who has access:
+Anyone
+
+Click Deploy.
+
+Copy the Web App URL.
+
+It will look similar to:
+
+https://script.google.com/macros/s/XXXXXXXXXXXX/exec
+
+STEP 5 — CONNECT YOUR WEBSITE
+-----------------------------
+Open index.html.
+
+Find:
+
+const GOOGLE_SCRIPT_URL =
+    "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+Replace the placeholder with your Web App URL.
+
+Example:
+
+const GOOGLE_SCRIPT_URL =
+    "https://script.google.com/macros/s/XXXXXXXXXXXX/exec";
+
+Save index.html.
+
+STEP 6 — TEST
+-------------
+Open index.html in your browser.
+
+Go to the booking section.
+
+Submit a test booking.
+
+Then open your Google Sheet.
+
+A new row should appear automatically.
+
+IMPORTANT
+---------
+The current frontend uses fetch(..., { mode: "no-cors" }).
+This is intentional because the website and Google Apps Script
+are hosted on different domains.
+
+The browser cannot read the response from Google Apps Script,
+but the POST request is still sent to the Apps Script backend.
+
+For production, consider adding:
+- spam protection / CAPTCHA
+- booking ID generation
+- email notification
+- WhatsApp notification
+- payment integration
+- admin dashboard
+- duplicate booking protection
